@@ -37,7 +37,7 @@ func (f *FavoritePokemonRepository) DeleteByID(tx *gorm.DB, value int64) error {
 func (f *FavoritePokemonRepository) FindAll(tx *gorm.DB) ([]entity.FavoritePokemon, error) {
 	var favoritePokemons []entity.FavoritePokemon
 
-	result := tx.Preload("Pokemon").Find(&favoritePokemons)
+	result := tx.Preload("Pokemon").Order("id DESC").Find(&favoritePokemons)
 
 	if result.Error != nil {
 		log.Printf("Repository -> Error when get all favorite pokemon : %v", result.Error)
